@@ -1,0 +1,9 @@
+- name: example of command variable
+  hosts: webserver
+  vars:
+    mypass: redhat
+  tasks: 
+  - name: add ravi user and apply password
+    user:    
+        name: ravi
+        password: "{{ mypass | password_hash('sha512')  }}"

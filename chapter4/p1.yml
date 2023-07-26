@@ -1,0 +1,33 @@
+- name: example of string variable in playbook
+  hosts: webserver
+  vars:
+    websvc: httpd
+    webroot: /var/www/html/test
+  tasks:
+     - name: install web service
+       yum:
+         name: "{{ websvc }}"
+         state: installed
+
+
+     - name: start web service
+       service:
+           name: "{{ websvc }}"
+           state: started
+           enabled: true
+
+     - name: create directory
+       file:
+         path: "{{ webroot }}"
+         state: directory
+
+     - name: create index.html page
+       copy:
+          content: "hello"
+          dest: "{{ webroot }}/index.html"
+
+     - debug: 
+          msg: "{{ websvc }} and {{ webroot }} "
+
+
+       
