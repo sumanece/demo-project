@@ -1,0 +1,15 @@
+- name: example of condition 
+  hosts: all
+  tasks:
+    - name: free space find out
+      command: df --output=avail /tmp
+      register: disk
+
+    - debug: 
+         var: disk
+ 
+    - name: install mysql
+      yum:
+        name: mysql
+        state: installed
+      when: disk  <  8328220 

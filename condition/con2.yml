@@ -1,0 +1,31 @@
+- name: example of conditions
+  hosts: all 
+  tasks: 
+     - name: httpd service install
+       yum: 
+         name: httpd
+         state: installed
+       when: ansible_distribution == 'CentOS' 
+       notify: extrasmart
+
+  handlers:
+     - name: extrasmart
+       service: 
+           name: httpd
+           state: started  
+     
+
+  tasks:
+     - name: check file existance
+       stat:
+          path: /tmp/rahul.conf
+       register: xyz
+
+     - debug:
+          var: xyz
+      
+     - name: file create it does not exist
+       copy:
+         content: "hello world"
+         dest: /tmp/rahul.conf
+       when: xyz.stat.exists==false 

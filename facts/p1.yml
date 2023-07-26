@@ -1,0 +1,7 @@
+- name: example of setup
+  hosts: all
+  tasks: 
+    - name: put the kernal version
+      copy:
+        content: "{{ ansible_kernel }}"
+        dest: /etc/motd 

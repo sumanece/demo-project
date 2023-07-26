@@ -1,0 +1,7 @@
+- name: example of setup
+  hosts: all
+  tasks: 
+    - name: save date and time
+      copy:
+        content: "{{ ansible_date_time }}"
+        dest: /etc/motd 

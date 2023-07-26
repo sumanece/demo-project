@@ -1,0 +1,13 @@
+- name: example of vault
+  hosts: all
+  vars_files:
+        - ./crypt.yml
+  tasks:
+     - name: set password
+       user:
+           name: raja
+           password: "{{ mypass | password_hash('sha512') }}"
+           state: "absent"
+           
+     - debug: 
+            msg: "{{mypass}}"

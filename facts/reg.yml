@@ -1,0 +1,15 @@
+- name: example of setup
+  hosts: all
+  become: true
+  tasks: 
+    - name: check the hw mode satus
+      command: lsblk
+      register: xyz
+   
+    - debug:
+         var: xyz
+        
+    - name: store machine storage filesystem
+      copy:
+          content: "this is my storage {{xyz}}"
+          dest: /mystorage
